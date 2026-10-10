@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "clg-ess-scheduler",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-02-24",
+  // `pnpm build` runs `wrangler deploy --dry-run` on every build, CI included.
+  "send_metrics": false,
+  "triggers": {
+    "crons": ["* * * * *"]
+  }
+}

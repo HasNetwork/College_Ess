@@ -1,0 +1,37 @@
+{
+  "name": "@clg-ess/db",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate",
+    "seed": "tsx src/bin/seed.ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@clg-ess/core": "workspace:*",
+    "@electric-sql/pglite": "^0.5.8",
+    "@neondatabase/serverless": "^0.10.4",
+    "better-auth": "^1.2.9",
+    "drizzle-orm": "^0.39.3",
+    "uuidv7": "^1.2.1"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.30.4",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.7"
+  }
+}

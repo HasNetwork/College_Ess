@@ -1,0 +1,289 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* next-themes puts `.dark` on <html>, so `dark:` must follow that class. Tailwind's default
+   follows the OS, and a student who chose Light on a dark phone got light tokens under dark
+   utilities (0.5-5 §2). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* The state variants shadcn/ui's components use (Radix sets `data-state`), inlined from
+   `shadcn/tailwind.css` (shadcn@4.21.0) rather than depending on the shadcn CLI package. */
+@custom-variant data-open {
+  &:where([data-state="open"]),
+  &:where([data-open]:not([data-open="false"])) {
+    @slot;
+  }
+}
+@custom-variant data-closed {
+  &:where([data-state="closed"]),
+  &:where([data-closed]:not([data-closed="false"])) {
+    @slot;
+  }
+}
+@custom-variant data-checked {
+  &:where([data-state="checked"]),
+  &:where([data-checked]:not([data-checked="false"])) {
+    @slot;
+  }
+}
+@custom-variant data-unchecked {
+  &:where([data-state="unchecked"]),
+  &:where([data-unchecked]:not([data-unchecked="false"])) {
+    @slot;
+  }
+}
+@custom-variant data-selected {
+  &:where([data-selected="true"]) {
+    @slot;
+  }
+}
+@custom-variant data-disabled {
+  &:where([data-disabled="true"]),
+  &:where([data-disabled]:not([data-disabled="false"])) {
+    @slot;
+  }
+}
+@custom-variant data-active {
+  &:where([data-state="active"]),
+  &:where([data-active]:not([data-active="false"])) {
+    @slot;
+  }
+}
+@custom-variant data-horizontal {
+  &:where([data-orientation="horizontal"]) {
+    @slot;
+  }
+}
+@custom-variant data-vertical {
+  &:where([data-orientation="vertical"]) {
+    @slot;
+  }
+}
+
+/* shadcn/ui's colour names as Tailwind colours (`bg-primary`, `text-muted-foreground`). Each
+   is an alias of a token below, so both spellings give the same colour (PLAN §8.10). */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  :root {
+    --surface-canvas: #f8f9fa;
+    --surface-card: #ffffff;
+    --surface-raised: #f1f3f5;
+    --surface-sunken: #e9ecef;
+    --surface-overlay: rgba(255, 255, 255, 0.85);
+    --surface-glass: rgba(255, 255, 255, 0.72);
+    --surface-glass-chrome: rgba(255, 255, 255, 0.82);
+    /* Dims the page behind a modal. */
+    --scrim: rgba(0, 0, 0, 0.32);
+
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.16);
+    --border-glass: rgba(255, 255, 255, 0.6);
+    --border-glass-rim: rgba(0, 0, 0, 0.06);
+
+    /* Every text colour reaches 4.5:1 on canvas, card and raised surfaces, and each status
+       colour also on its own 10% tint: `tests/tokens-contrast.test.ts` holds this. */
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --text-muted: #646b78;
+    --text-inverse: #ffffff;
+
+    /* The logo's own blue (the icon's fill), so the app's colour and its mark agree. */
+    --primary: #1a60db;
+    --primary-hover: #1d4ed8;
+    --primary-foreground: #ffffff;
+
+    --success: #047857;
+    --success-foreground: #ffffff;
+
+    --warning: #9a4a06;
+    --warning-foreground: #ffffff;
+
+    --destructive: #c81e1e;
+    --destructive-foreground: #ffffff;
+
+    --ring: rgba(26, 96, 219, 0.4);
+
+    /* shadcn/ui's names for the tokens above, which its components read (PLAN §8.10).
+       Aliases only: change the token, never the alias. */
+    --background: var(--surface-canvas);
+    --foreground: var(--text-primary);
+    --card: var(--surface-card);
+    --card-foreground: var(--text-primary);
+    --popover: var(--surface-card);
+    --popover-foreground: var(--text-primary);
+    --secondary: var(--surface-raised);
+    --secondary-foreground: var(--text-primary);
+    --muted: var(--surface-raised);
+    --muted-foreground: var(--text-muted);
+    --accent: var(--surface-raised);
+    --accent-foreground: var(--text-primary);
+    --border: var(--border-subtle);
+    --input: var(--border-strong);
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.08), inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+
+    --font-display: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sat: env(safe-area-inset-top, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+  }
+
+  .dark {
+    --surface-canvas: #09090b;
+    --surface-card: #121215;
+    --surface-raised: #18181b;
+    --surface-sunken: #050507;
+    --surface-overlay: rgba(18, 18, 21, 0.85);
+    --surface-glass: rgba(18, 18, 21, 0.72);
+    --surface-glass-chrome: rgba(18, 18, 21, 0.82);
+    --scrim: rgba(0, 0, 0, 0.6);
+
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.16);
+    --border-glass: rgba(255, 255, 255, 0.12);
+    --border-glass-rim: rgba(255, 255, 255, 0.08);
+
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
+    --text-muted: #7f8795;
+    --text-inverse: #111827;
+
+    /* A filled colour here is light and its label is the canvas dark. Blue is also text on
+       black (links, the current tab), which needs a light blue; no blue light enough for that
+       gives a white label 4.5:1. */
+    --primary: #60a5fa;
+    --primary-hover: #93c5fd;
+    --primary-foreground: #09090b;
+
+    --success: #10b981;
+    --success-foreground: #09090b;
+
+    --warning: #fbbf24;
+    --warning-foreground: #09090b;
+
+    --destructive: #f87171;
+    --destructive-foreground: #09090b;
+
+    --ring: rgba(96, 165, 250, 0.5);
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* shadcn/ui's components draw a bare `border` in this colour (Tailwind's default is the text
+   colour). */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+}
+
+body {
+  background-color: var(--surface-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* Glass Surface Chrome Utility */
+.glass-chrome {
+  background-color: var(--surface-glass-chrome);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border-glass);
+  box-shadow: var(--shadow-glass);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-chrome {
+    background-color: var(--surface-raised);
+    border: 1px solid var(--border-subtle);
+  }
+}
+
+/* Touch Target Minimum (44px) */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Focus Visible */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Safe Area Insets */
+.pb-safe {
+  padding-bottom: max(0.75rem, var(--sab));
+}
+
+.pt-safe {
+  padding-top: max(0.75rem, var(--sat));
+}
+
+/* Accessibility: Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

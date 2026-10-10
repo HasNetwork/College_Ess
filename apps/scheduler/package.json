@@ -1,0 +1,22 @@
+{
+  "name": "@clg-ess/scheduler",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "build": "wrangler deploy --dry-run --outdir dist",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@clg-ess/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250224.0",
+    "typescript": "^5.8.2",
+    "vitest": "^3.2.7",
+    "wrangler": "^3.111.0"
+  }
+}
