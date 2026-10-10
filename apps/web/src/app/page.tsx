@@ -47,11 +47,16 @@ export default function WelcomePage() {
           ) : (
             <>
               <Button asChild size="lg">
-                <Link href="/sign-in">Sign In</Link>
+                <Link href="/dashboard">Launch Demo Presentation</Link>
               </Button>
-              <Button asChild size="lg" variant="secondary">
-                <Link href="/sign-up">Sign Up</Link>
-              </Button>
+              <div className="flex gap-2">
+                <Button asChild size="sm" variant="outline" className="flex-1 text-xs">
+                  <Link href="/sign-in">Sign In</Link>
+                </Button>
+                <Button asChild size="sm" variant="outline" className="flex-1 text-xs">
+                  <Link href="/sign-up">Sign Up</Link>
+                </Button>
+              </div>
             </>
           )}
         </div>
