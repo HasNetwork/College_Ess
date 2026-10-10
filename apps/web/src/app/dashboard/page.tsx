@@ -90,9 +90,31 @@ export default function DashboardPage() {
     );
   };
 
-  const activeWearingTop = INITIAL_WARDROBE[0];
-  const activeWearingBottom = INITIAL_WARDROBE[2];
-  const nextExam = INITIAL_EXAMS[0];
+  const activeWearingTop = INITIAL_WARDROBE[0] ?? {
+    id: "drip-1",
+    name: "Oxford Navy Shirt",
+    emoji: "👔",
+    wearsLeft: 2,
+    maxWears: 3,
+  };
+  const activeWearingBottom = INITIAL_WARDROBE[2] ?? {
+    id: "drip-3",
+    name: "Khaki Chinos",
+    emoji: "👖",
+    wearsLeft: 3,
+    maxWears: 5,
+  };
+  const nextExam = INITIAL_EXAMS[0] ?? {
+    id: "exam-1",
+    courseCode: "CS305",
+    courseName: "Distributed Systems",
+    date: "Wednesday, Oct 16",
+    time: "09:30 AM",
+    hall: "LH-201",
+    seatNo: "Row C · Seat 42",
+    daysRemaining: 6,
+    credits: 4,
+  };
 
   return (
     <AppShell>
