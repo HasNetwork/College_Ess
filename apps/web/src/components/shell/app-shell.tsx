@@ -59,9 +59,9 @@ export function AppShell({ children }: { children: ReactNode }) {
         {/* Desktop Sidebar (>= 768px) */}
         <nav
           aria-label="Desktop primary navigation"
-          className="hidden md:flex flex-col w-60 shrink-0 border-r border-[var(--border-subtle)] p-4 gap-1 select-none"
+          className="hidden md:flex flex-col w-60 shrink-0 border-r border-[var(--border-subtle)] p-3 gap-1 select-none overflow-y-auto max-h-[calc(100vh-3.5rem)] sticky top-12"
         >
-          <div className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider px-3 py-2">
+          <div className="text-[11px] font-semibold text-[var(--text-muted)] uppercase tracking-wider px-3 py-1.5">
             Modules
           </div>
           {NAV_ITEMS.map((item) => {
@@ -72,14 +72,23 @@ export function AppShell({ children }: { children: ReactNode }) {
                 key={item.href}
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-[var(--radius-md)] text-sm font-medium transition-colors touch-target ${
+                className={`flex items-center justify-between px-3 py-2 rounded-[var(--radius-md)] text-sm font-medium transition-colors touch-target ${
                   isActive
                     ? "bg-[var(--primary)] text-[var(--primary-foreground)] shadow-[var(--shadow-sm)]"
                     : "text-[var(--text-secondary)] hover:bg-[var(--surface-raised)] hover:text-[var(--text-primary)]"
                 }`}
               >
-                <Icon className="h-4 w-4 shrink-0" />
-                <span>{item.label}</span>
+                <div className="flex items-center gap-2.5 truncate">
+                  <Icon className="h-4 w-4 shrink-0" />
+                  <span className="truncate">{item.label}</span>
+                </div>
+                {item.badge && (
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider ${
+                    isActive ? "bg-[var(--primary-foreground)] text-[var(--primary)]" : "bg-[var(--primary)]/10 text-[var(--primary)]"
+                  }`}>
+                    {item.badge}
+                  </span>
+                )}
               </Link>
             );
           })}
@@ -99,7 +108,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         as="nav"
         chromeRole="tabbar"
         aria-label="Mobile primary navigation"
-        className="flex md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-[var(--border-subtle)] px-2 pt-1 pb-safe items-center justify-around select-none"
+        className="flex md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-[var(--border-subtle)] px-2 pt-1 pb-safe items-center overflow-x-auto select-none gap-1 scroll-smooth"
       >
         {NAV_ITEMS.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -110,14 +119,14 @@ export function AppShell({ children }: { children: ReactNode }) {
               href={item.href}
               aria-label={item.label}
               aria-current={isActive ? "page" : undefined}
-              className={`flex flex-col items-center justify-center py-1 px-1.5 rounded-[var(--radius-sm)] touch-target min-w-[44px] transition-colors ${
+              className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-[var(--radius-sm)] touch-target min-w-[58px] shrink-0 transition-colors ${
                 isActive
                   ? "text-[var(--primary)] font-semibold"
                   : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
               }`}
             >
               <Icon className="h-5 w-5" />
-              <span className="text-[10px] tracking-tight mt-0.5">{item.label}</span>
+              <span className="text-[10px] tracking-tight mt-0.5 truncate max-w-[54px]">{item.label}</span>
             </Link>
           );
         })}
